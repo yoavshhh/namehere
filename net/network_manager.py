@@ -4,8 +4,8 @@ from net.peer import Peer
 class NetworkManager:
     def __init__(self):
         self.peer = Peer()
-        if platform.system() == "Windows":
-            self.allow_port_windows(9999)
+        # if platform.system() == "Windows":
+        #     self.allow_port_windows(9999)
 
     def sync(self):
         # Placeholder for sync logic
