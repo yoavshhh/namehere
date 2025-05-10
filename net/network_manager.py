@@ -11,7 +11,14 @@ class NetworkManager:
         # Placeholder for sync logic
         pass
     
-    def allow_port_windows(self, port, protocol="tcp", name="NameHere"):
+    def allow_port_windows(self, port: int, name: str, protocol: str="tcp"):
+        """allow port in windows systems
+
+        Args:
+            port (int): Port number to allow
+            name (str): Name of the rule
+            protocol (str, optional): The protocol type to allow. Defaults to "tcp".
+        """        
         try:
             import subprocess
             import ctypes
