@@ -1,9 +1,11 @@
 import pygame
 
+from logic.map.room_object.room_object import RoomObject
 
-class Rock:
+
+class Rock(RoomObject):
     def __init__(self, x: int, y: int):
-        self.rect = pygame.Rect(x, y, 50, 50)
+        super(Rock, self).__init__(x, y)
         self.color = 'grey'
 
     def is_solid(self):

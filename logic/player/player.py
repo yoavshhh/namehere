@@ -1,12 +1,12 @@
 import pygame
 
-from logic.map.room import Room
+from logic.map.game_map import GameMap
 from logic.player.key_bindings import KeyBindings
 
 
 class Player:
-
-    def __init__(self, x: int, y: int, current_room: Room):
+    updated: bool
+    def __init__(self, x: int, y: int, map: GameMap, ):
         self.shape = pygame.Rect(x, y, 50, 50)
         self.color = 'blue'
         self.speed = 5
@@ -14,13 +14,17 @@ class Player:
                                         right=pygame.K_RIGHT,
                                         up=pygame.K_UP,
                                         down=pygame.K_DOWN)
-        self.current_room = current_room
+        self.map = map
 
     def update(self):
+        self.updated = False
+        self._update()
+        if self.updated:
+
+    def _update(self):
         self.move()
 
     def move(self):
-
         keys = pygame.key.get_pressed()
         if keys[self.key_bindings.left]:
             self.move_axis('x', -1)
@@ -40,7 +44,8 @@ class Player:
             else:
                 temp_rect.y += direction
 
-            if not self.current_room.is_blocked(temp_rect):
+            if not self.map.is_blocked(temp_rect):
+                self.updated = True
                 if axis == 'x':
                     self.shape.x += direction
                 else:

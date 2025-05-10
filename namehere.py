@@ -17,7 +17,7 @@ logging.basicConfig(
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((1000, 1000))
     pygame.display.set_caption("My P2P Game")
 
     clock = pygame.time.Clock()
@@ -27,13 +27,25 @@ def main():
     logging.info("Starting game.")
 
     running = True
+    win = False
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
-        game.update()
-        game.render()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    game = Game(screen)
+                    win = False
+        if game.check_for_win():
+            win = True
+        if not win:
+            game.update()
+            game.pull()
+            game.render()
+        else:
+            font = pygame.font.SysFont(None, 72)
+            text = font.render("YOU WIN!", True, (0, 255, 0))
+            screen.blit(text, (screen.get_width() // 2 - 150, screen.get_height() // 2))
 
         pygame.display.flip()
         clock.tick(60)
