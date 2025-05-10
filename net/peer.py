@@ -64,6 +64,8 @@ class Peer:
         while not Peer.STOP.is_set():
             try:
                 conn, addr = s.accept()
+                conn.send(b"Hello from peer")
+                logging.info(f"Got from peer: {conn.recv(1024)}")
             except socket.timeout:
                 continue
             else:
@@ -80,6 +82,8 @@ class Peer:
         while not Peer.STOP.is_set():
             try:
                 s.connect(addr)
+                s.send(b"Hello from peer")
+                logging.info(f"Got from peer: {s.recv(1024)}")
             except socket.error:
                 continue
             # except Exception as exc:
