@@ -1,6 +1,19 @@
 import pygame
+import logging
+import sys
+
 from logic.game import Game
 from net.network_manager import NetworkManager
+
+# Setup logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='[%(levelname)s] %(asctime)s - %(message)s',
+    handlers=[
+        logging.FileHandler("game.log"),
+        logging.StreamHandler(sys.stdout)  # Also prints to console
+    ]
+)
 
 def main():
     pygame.init()
@@ -10,6 +23,8 @@ def main():
     clock = pygame.time.Clock()
     game = Game(screen)
     net = NetworkManager()
+    
+    logging.info("Starting game.")
 
     running = True
     while running:
